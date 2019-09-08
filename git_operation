@@ -1,0 +1,42 @@
+撤销未push的commit：
+1、找到之前提交的git commit的id 
+git log 
+找到想要撤销的id 
+2、git reset --hard id 
+完成撤销,同时将代码恢复到前一commit_id 对应的版本 
+(2、git reset id 
+完成Commit命令的撤销，但是不对代码修改进行撤销，可以直接通过git commit 重新提交对本地代码的修改)
+
+删除远程分支（origin/fix/gmp3988）：
+ git push origin --delete fix/gmp3988
+
+git branch --set-upstream-to origin/devtest devtest 
+
+github去掉空格不同的显示：在后面添加w=1
+Because Github has no obvious option to disable showing whitespace changes in diff views, you can use `w=1` parameter to disable it manually.
+ Like here: `https://github.wdf.sap.corp/IMPROD/GMP/pull/6695/files?w=1`
+
+git撤销已经push到远端的commit
+git log 获取版本号
+git reset --hard <版本号>
+git checkout master
+git pull
+git push origin <分支名> --force
+
+
+如何解决很多commit问题？
+首先我们要重新建一条分支，比如 GMP3524/CookbookVersions
+git checkout master
+git pull
+git checkout -b GMP3524/CookbookVersions origin/GMP3524/CookbookVersions
+现在我们需要找到有很多commit记录的分支名，比如叫GMP3524/ManyCommits
+git merge --squash GMP3524/ManyCommits
+git add .
+git commit -m 'xxxxx'
+git push origin GMP3524/CookbookVersions
+
+
+如果代码被revert之后，想要在本地重新恢复：
+git revert -m 1 <commit-hash> 
+git commit -m "Reverting the last commit which messed the repo."
+git push
